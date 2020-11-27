@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <title>Registrasi</title>
+</head>
+<body>
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username">
+
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password"> <br>
+
+        <input type="submit" name="regis" id="regis" value="Registrasi" onclick="insertData()">
+</body>
+<script>
+    function insertData(){
+        var v_username = $('#username').val();
+        var v_password = $('#password').val();
+
+        $.ajax({
+            url: "../back-end/registrasi.php",
+            type: "POST",
+            async: false,
+            data: {
+                insertuser: 1,
+                username: v_username,
+                password: v_password
+            },
+            success: function(res){
+                alert(`${v_username} berhasil didaftarkan ! ${res}`);
+                window.location.href = "login.html";
+            }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <title>Login</title>
+</head>
+<body>
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username">
+
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password"> <br><br>
+
+        <input type="submit" name="login" id="login" value="Login" onclick="login()">
+        <button><a href="registrasi.html">Registrasi</a></button>
+</body>
+<script>
+    function login(){
+        var v_username = $('#username').val();
+        var v_password = $('#password').val();
+
+        $.ajax({
+            url: "../back-end/login.php",
+            type: "POST",
+            async: false,
+            data: {
+                loginuser: 1,
+                username: v_username,
+                password: v_password
+            },
+            success: function(res){
+                // var hasil = res.toString();
+
+                if(res == "berhasil"){
+                    alert(`Welcome, ${v_username} ${res}!`);
+                    window.location.href = "index.html";
+                }else if(res == "gagal"){
+                    alert(`Username atau Password Salah !`);
+                    window.location.href = "login.html";
+                }
+            }
+        });
+    }
+</script>
+</html>
